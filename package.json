@@ -1,9 +1,9 @@
 {
-  "name": "beyondweb",
+  "name": "beyond_web",
   "version": "0.0.1",
   "author": "伍岳 <wuyue92tree@163.com>",
-  "description": "An electron-vue project",
-  "license": null,
+  "description": "make web site more comfortable.",
+  "license": "MIT",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -22,7 +22,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "beyondweb",
+    "productName": "WEB+",
     "appId": "com.example.yourapp",
     "directories": {
       "output": "build"
@@ -56,8 +56,11 @@
     }
   },
   "dependencies": {
-    "vue": "^2.5.16",
     "axios": "^0.18.0",
+    "electron-serve": "^0.2.1",
+    "iview": "^3.4.2",
+    "puppeteer-core": "^1.16.0",
+    "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
