@@ -1,6 +1,7 @@
 <template>
   <Row>
     <Menu mode="horizontal" :theme="theme1" active-name="1">
+      <MenuItem name="0"><img src="/static/web+.svg" width="94px;" height="47px;" style="margin-top: 6px;"></MenuItem>
       <MenuItem name="1" @click.native="changePath('/webContainer')">
         <Icon type="ios-browsers"/>网页容器
       </MenuItem>
