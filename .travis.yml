@@ -22,7 +22,8 @@ before_install:
 - mkdir -p /tmp/git-lfs && curl -L https://github.com/github/git-lfs/releases/download/v1.2.1/git-lfs-$([
   "$TRAVIS_OS_NAME" == "linux" ] && echo "linux" || echo "darwin")-amd64-1.2.1.tar.gz
   | tar -xz -C /tmp/git-lfs --strip-components 1 && /tmp/git-lfs/git-lfs pull
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install --no-install-recommends -y icnsutils graphicsmagick xz-utils; fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install --no-install-recommends
+  -y icnsutils graphicsmagick xz-utils; fi
 install:
 - nvm install 10
 - curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -31,12 +32,10 @@ install:
 - yarn
 script:
 - yarn run build
-
 deploy:
   provider: releases
-  skip_cleanup: true
   api_key:
-    secure: pd8VlgI6KqalJj8Bj6wAJ9LfiUq798tNYg81/TRc4/tjMLSmBnY6dDE+PDkognzKM50jKRYTtanUyO0OpqGi3Z9ReptVQZtv0VkyCTOZ2S6EIPFhnN2KsKofTrp+ztXvuCSb4camVW04h60ONDnVSH2dZlCMAav+uvP7SuOZMjRw7NwiTGmncISOS4LCIrXp4WoiaOILoU408qsWHWn1T27iDgzATgi4NintChQk+UOFb/lHtrKvk0wXyPhJoKQI92hh/1ylnUugzFCMWGbbIg/6sdeYpXpolXNHwOUfiQfYCqDC91RNO+RM/CTijMbTipl8ivlffMH/Is8BqwTB3OGJr2jsqBa3OMbbLUo5Wnqr7T5JCEDKBpgRxYj6ViKE1MMDpYGGd9KAhk35DEYM1kSJuY6bQKaJL3qml77Wq/b6Qav26QLp2dW0l+PAF7izxKz1Nhotp43f7T4jAal5BcTMUHA3tM+gdQrO1K1fAvW1zYo0RTEjuH3fiS+ciAFo11DOo/hlwWqxMKIWUgCZqTH1z8tx10x3T3L81ieeNku71XMvtt9z3wPzrMkTqafTobfuOU+8k4zgaWF49F+JjEoFUCFBYBuTQFnxy3Oa5U6KSHRZ+4t1YgTGb4no4tQL/YWm4L5JGuV+NfBf10BO10RuHhOr5u38rrcQqeyBRws=
+    secure: hbv6bi+zE0cr6gIXVW1EboC6I46sq2PLvCte9oyHZ3tp3pc0g+K6dVT5jHmzEdGyT9iaZhH1fgdqBUR7Uo0K1Nssoc3XF7W5plGJcXAV1whLS5kx4ZwSljR9qFx50CCEX8Q8BSH5oV9brt2wYGnlPj/86vQMjJMv7tENRqJLFBmhDgAc5ev3T5Z2x7v5Kk2iyExmCGiu74dUWnh1UDzkSE+BisqFSz3l++W7N9XOVMy2eb5ZJLl52bgIUQ8KRYOMMZwnfa+hoBNNCMsOvYX4o4DoQaAdZqp1ppW4RBFe/cEMvmqQQZyp23tF3MYN1jK4s+Uw74OzxBUhMTRnAux7n7rRoMNy12mPETYyuLRab7Jygc4Gw/s4ynG1zGHi1dzzW523teME/9tjZ5/qycwhwvuVjpt4ACVaxNdWy9OHhvmLvEqj942F9zju/BVWzPEnKf6/58CKU9vVY6s40GjFs3nRuxor8axDrlNbn3z25MQAHQBY4qWUMHTba4ui+M3FXcS5gbSo9lDMzrlTYx3wqtZVMs5GyE6A3YIDZvrFlmRVmbK+pinXChesh8IQoz6jDxZ0Ui1ubQ/NKyJCC+HQoAQw+HbUojnhUTlaWBRBWgoTv0Shc/5re+r97gWVrqFgi3AkerGN1lANNw9o/rLba1phOvLsft4UaoIjO0klg1I=
   on:
     repo: wuyue92tree/beyondWeb
     tag: true
