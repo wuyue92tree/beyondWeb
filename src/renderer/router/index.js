@@ -30,6 +30,11 @@ export default new Router({
     },
     {
       path: '*',
+      name: 'webMainPage',
+      component: require('@/components/webMainPage').default
+    },
+    {
+      path: '*',
       redirect: '/'
     }
   ]
