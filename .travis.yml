@@ -13,17 +13,17 @@ matrix:
     language: generic
 
 cache:
+  yarn: true
   directories:
   - node_modules
-  - "$HOME/.electron"
-  - "$HOME/.cache/electron-builder"
-
-before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
-  - source ~/.bashrc
+  - $HOME/.cache/electron
+  - $HOME/.cache/electron-builder
 
 install:
-  - yarn
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew install yarn;
+    fi
 
 script:
   - |
