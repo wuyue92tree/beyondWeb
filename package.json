@@ -1,6 +1,6 @@
 {
   "name": "beyond_web",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "伍岳 <wuyue92tree@163.com>",
   "description": "make web site more comfortable.",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "beyond_web",
+    "productName": "WEB+",
     "appId": "top.antio.beyondWeb",
     "directories": {
       "output": "build"
