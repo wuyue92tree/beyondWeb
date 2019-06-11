@@ -3863,10 +3863,12 @@ electron-publish@20.40.0:
     lazy-val "^1.0.4"
     mime "^2.4.1"
 
-electron-serve@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.npmjs.org/electron-serve/-/electron-serve-0.2.1.tgz#b2ad1052fa40e2fe60e9dd63c29e3030ae58f1e3"
-  integrity sha512-fFypgyJmTh5kK5/VoGUHtQZ0x9GOpwEZfVynk4ubTZk0oE5+0scUxOXmEbSdpbGpakopRv7brohZ9gNB3f0GRg==
+electron-serve@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/electron-serve/-/electron-serve-0.1.0.tgz#8405db0b7a96a64293c93ae65718e93e5ed4403a"
+  integrity sha512-trrFYdIs+pKhYgvtTEJx1jXJbSaXaX6LlcEQ+U3MClGN1t2Z3nBMr9mGZuwbXk91WS4Zpj/KiotvDw1ZFc6Rog==
+  dependencies:
+    pify "^3.0.0"
 
 electron-store@^2.0.0:
   version "2.0.0"
