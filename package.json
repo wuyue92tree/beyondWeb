@@ -1,6 +1,6 @@
 {
   "name": "beyond_web",
-  "version": "1.0.0-beta",
+  "version": "1.0.0",
   "author": "伍岳 <wuyue92tree@163.com>",
   "description": "make web site more comfortable.",
   "license": "MIT",
@@ -23,7 +23,7 @@
   },
   "build": {
     "productName": "beyond_web",
-    "appId": "com.example.yourapp",
+    "appId": "top.antio.beyondWeb",
     "directories": {
       "output": "build"
     },
@@ -37,15 +37,6 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
     },
-    "publish": [
-      {
-        "provider": "github",
-        "repo": "beyondWeb",
-        "owner": "wuyue92tree",
-        "host": "github.com",
-        "releaseType": "release"
-      }
-    ],
     "dmg": {
       "contents": [
         {
