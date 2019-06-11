@@ -12,12 +12,12 @@ matrix:
       services: docker
       language: generic
 
-cache:
-  yarn: true
-  directories:
-    - node_modules
-    - $HOME/.cache/electron
-    - $HOME/.cache/electron-builder
+# cache:
+#   yarn: true
+#   directories:
+#     - node_modules
+#     - $HOME/.cache/electron
+#     - $HOME/.cache/electron-builder
 
 install:
   - |
@@ -38,8 +38,8 @@ script:
     else
       yarn --link-duplicates --pure-lockfile && yarn build
     fi
-before_cache:
-  - rm -rf $HOME/.cache/electron-builder/wine
+# before_cache:
+#   - rm -rf $HOME/.cache/electron-builder/wine
 
 deploy:
   provider: releases
