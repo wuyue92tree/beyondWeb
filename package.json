@@ -37,15 +37,6 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
     },
-    "publish": [
-      {
-        "provider": "github",
-        "repo": "beyondWeb",
-        "owner": "wuyue92tree",
-        "host": "github.com",
-        "releaseType": "release"
-      }
-    ],
     "dmg": {
       "contents": [
         {
