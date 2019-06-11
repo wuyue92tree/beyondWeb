@@ -93,7 +93,7 @@ export default {
     openWebMainPage (target) {
       const url = process.env.NODE_ENV === 'development'
         ? `http://localhost:9080`
-        : 'beyondweb://-'
+        : 'byw://-'
       const { BrowserWindow } = this.$electron.remote
       let win = new BrowserWindow({
         titleBarStyle: 'hiddenInset',

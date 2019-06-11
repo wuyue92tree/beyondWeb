@@ -20,7 +20,8 @@ let mainWindow
 const winURL =
   process.env.NODE_ENV === 'development'
     ? `http://localhost:9080`
-    : serve({ scheme: 'beyondweb', directory: __dirname }) // : `file://${__dirname}/index.html`
+    : serve({ scheme: 'byw', directory: __dirname })
+// : `file://${__dirname}/index.html`
 
 function createWindow () {
   /**
@@ -167,7 +168,10 @@ app.on('ready', () => {
 
 autoUpdater.logger = log
 autoUpdater.logger.transports.file.level = 'info'
-const uploadUrl = 'https://github.com'
+const uploadUrl =
+  'https://github.com/wuyue92tree/beyondWeb/releases/download/v' +
+  packageInfo.version +
+  '/'
 function updateHandle () {
   console.log('start check')
   // const os = require('os')

@@ -212,7 +212,7 @@ export default {
           setTimeout(() => {
             const url = process.env.NODE_ENV === 'development'
               ? `http://localhost:9080`
-              : 'beyondweb://-'
+              : 'byw://-'
             let currentWin = this.$electron.remote.getCurrentWindow()
             currentWin.loadURL(url + '/#webMainPage/?target=' + containerId)
           }, 2000)
