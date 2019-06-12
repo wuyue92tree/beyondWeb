@@ -1,6 +1,7 @@
 matrix:
   include:
-    - os: osx
+    - name: 'macOS'
+      os: osx
       osx_image: xcode9.4
       language: node_js
       node_js: '10'
@@ -8,16 +9,18 @@ matrix:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
-    - os: linux
+    - name: 'liunx & windows'
+      os: linux
+      dist: xenial
       services: docker
       language: generic
 
-# cache:
-#   yarn: true
-#   directories:
-#     - node_modules
-#     - $HOME/.cache/electron
-#     - $HOME/.cache/electron-builder
+cache:
+  yarn: true
+  directories:
+    - node_modules
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
 
 install:
   - |
@@ -38,11 +41,14 @@ script:
     else
       yarn --link-duplicates --pure-lockfile && yarn build
     fi
-# before_cache:
-#   - rm -rf $HOME/.cache/electron-builder/wine
+before_cache:
+  - rm -rf $HOME/.cache/electron-builder/wine
 
 deploy:
   provider: releases
+  skip_cleanup: true
+  draft: true
+  overwrite: true
   api_key:
     secure: hbv6bi+zE0cr6gIXVW1EboC6I46sq2PLvCte9oyHZ3tp3pc0g+K6dVT5jHmzEdGyT9iaZhH1fgdqBUR7Uo0K1Nssoc3XF7W5plGJcXAV1whLS5kx4ZwSljR9qFx50CCEX8Q8BSH5oV9brt2wYGnlPj/86vQMjJMv7tENRqJLFBmhDgAc5ev3T5Z2x7v5Kk2iyExmCGiu74dUWnh1UDzkSE+BisqFSz3l++W7N9XOVMy2eb5ZJLl52bgIUQ8KRYOMMZwnfa+hoBNNCMsOvYX4o4DoQaAdZqp1ppW4RBFe/cEMvmqQQZyp23tF3MYN1jK4s+Uw74OzxBUhMTRnAux7n7rRoMNy12mPETYyuLRab7Jygc4Gw/s4ynG1zGHi1dzzW523teME/9tjZ5/qycwhwvuVjpt4ACVaxNdWy9OHhvmLvEqj942F9zju/BVWzPEnKf6/58CKU9vVY6s40GjFs3nRuxor8axDrlNbn3z25MQAHQBY4qWUMHTba4ui+M3FXcS5gbSo9lDMzrlTYx3wqtZVMs5GyE6A3YIDZvrFlmRVmbK+pinXChesh8IQoz6jDxZ0Ui1ubQ/NKyJCC+HQoAQw+HbUojnhUTlaWBRBWgoTv0Shc/5re+r97gWVrqFgi3AkerGN1lANNw9o/rLba1phOvLsft4UaoIjO0klg1I=
   on:
