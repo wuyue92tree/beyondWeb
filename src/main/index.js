@@ -39,8 +39,60 @@ function createWindow () {
   // BrowserWindow.addDevToolsExtension('/home/wuyue/Project/morgan-v3/morgan-spider/script/ResumeSearchPlugin')
 
   const template = [
+    // { role: 'appMenu' }
+    ...(process.platform === 'darwin'
+      ? [
+        {
+          label: app.getName(),
+          submenu: [
+            {
+              // role: 'about',
+              label: '关于 ' + app.getName(),
+              click: function () {
+                dialog.showMessageBox(mainWindow, {
+                  type: 'info',
+                  title: '关于',
+                  message: 'WEB+',
+                  detail:
+                      '版本： v' +
+                      packageInfo.version +
+                      '\n联系作者： wuyue92tree@163.com'
+                })
+              }
+            },
+            { type: 'separator' },
+            { role: 'services', label: '服务' },
+            { type: 'separator' },
+            { role: 'hide', label: '隐藏 ' + app.getName() },
+            { role: 'hideothers', label: '隐藏其他程序' },
+            { role: 'unhide', label: '显示全部' },
+            { type: 'separator' },
+            { role: 'quit', label: '退出 ' + app.getName() }
+          ]
+        }
+      ]
+      : [
+        {
+          label: '菜单',
+          submenu: [{ role: 'quit', label: '退出 ' + app.getName() }]
+        }
+      ]),
     {
-      label: '菜单',
+      label: '编辑',
+      submenu: [
+        { role: 'undo', label: '撤销' },
+        { role: 'redo', label: '恢复' },
+        { type: 'separator' },
+        { role: 'cut', label: '剪切' },
+        { role: 'copy', label: '复制' },
+        { role: 'paste', label: '粘贴' },
+        { role: 'pasteandmatchstyle', label: '带样式粘贴' },
+        { role: 'delete', label: '删除' },
+        { role: 'selectall', label: '全选' }
+      ]
+    },
+    {
+      label: '帮助',
       submenu: [
         {
           label: '开发者工具',
@@ -68,34 +120,6 @@ function createWindow () {
         {
           label: '刷新',
           role: 'reload'
-        },
-        {
-          label: '编辑',
-          submenu: [
-            { role: 'undo', label: '撤销' },
-            { role: 'redo', label: '恢复' },
-            { type: 'separator' },
-            { role: 'cut', label: '剪切' },
-            { role: 'copy', label: '复制' },
-            { role: 'paste', label: '粘贴' },
-            { role: 'pasteandmatchstyle', label: '带样式粘贴' },
-            { role: 'delete', label: '删除' },
-            { role: 'selectall', label: '全选' }
-          ]
-        },
-        {
-          label: '关于',
-          click: function () {
-            dialog.showMessageBox(mainWindow, {
-              type: 'info',
-              title: '关于',
-              message: 'WEB+',
-              detail:
-                '版本： v' +
-                packageInfo.version +
-                '\n联系作者： wuyue92tree@163.com'
-            })
-          }
         }
       ]
     }
@@ -115,6 +139,8 @@ function createWindow () {
     mainWindow = null
   })
 }
+
+app.setName(packageInfo.build.productName)
 
 app.on('ready', createWindow)
 
