@@ -1,7 +1,7 @@
 <template>
   <div>
     <Layout>
-      <Header :style="{position: 'fixed', width: '100%', zIndex: 999}">
+      <Header :style="headerStyle">
         <Menu mode="horizontal"
               :theme="theme1"
               active-name="1">
@@ -58,6 +58,7 @@ export default {
   data () {
     return {
       theme1: 'dark',
+      headerStyle: { position: 'fixed', width: '100%', zIndex: 999 },
       loading: true,
       updateModal: false,
       updateInfo: '',
@@ -98,9 +99,15 @@ export default {
       ipcRenderer.on('isUpdateNow', () => {
         self.canDownload = true
       })
+    },
+    init () {
+      if (this.$os.platform() !== 'darwin') {
+        this.headerStyle = { position: 'fixed', width: '100%', zIndex: 999, padding: 0 }
+      }
     }
   },
   mounted () {
+    this.init()
     this.checkVersion()
   }
 }

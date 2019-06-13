@@ -241,6 +241,10 @@ export default {
     },
     handleTabRemove () { },
     async init () {
+      if (this.$os.platform() !== 'darwin') {
+        document.querySelector('.ivu-tabs-nav').style.cssText = 'padding-left:5px !important;'
+      }
+
       this.pageId = this.$route.query.target
       if (this.pageId) {
         this.config = (await this.$db.webContainer.where({ id: parseInt(this.pageId) }).toArray())[0]
