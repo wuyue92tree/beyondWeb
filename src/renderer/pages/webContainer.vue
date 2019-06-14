@@ -18,39 +18,44 @@
       <BreadcrumbItem>网页容器</BreadcrumbItem>
     </Breadcrumb>
 
-    <Row type="flex">
-      <Col span="4"
-           v-for="(item, index) in webContainerList"
-           :key="index"
-           style="padding-right: 5px; padding-bottom: 5px;">
-      <Card>
-        <Dropdown transfer
-                  ref="contentMenu"
-                  trigger="contextMenu"
-                  placement="right-start"
-                  id="webContainerDropdown">
-          <div style="text-align:center">
-            <img v-if="item.icon"
-                 :src="item.icon"
-                 width="80px;"
-                 height="80px;"
-                 @click="openWebMainPage(item.id)">
-            <img v-else
-                 src="/static/web+Icon.svg"
-                 width="80px;"
-                 height="80px;"
-                 @click="openWebMainPage(item.id)">
-            <h3 class="text-overflow">{{item.name}}</h3>
-          </div>
-          <DropdownMenu slot="list">
-            <DropdownItem @click.native="openWebMainPage(item.id)">打开</DropdownItem>
-            <DropdownItem @click.native="delWebContainer(item.id)">删除</DropdownItem>
-            <DropdownItem divided>取消</DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+    <Row type="flex"
+         style="-webkit-app-region: no-drag">
+      <vuedraggable v-model="webContainerList"
+                    @change="updated"
+                    style="width: 100%">
+        <Col span="4"
+             v-for="(item, index) in webContainerList"
+             :key="index"
+             style="padding-right: 5px; padding-bottom: 5px;">
+        <Card>
+          <Dropdown transfer
+                    ref="contentMenu"
+                    trigger="contextMenu"
+                    placement="right-start"
+                    id="webContainerDropdown">
+            <div style="text-align:center">
+              <img v-if="item.icon"
+                   :src="item.icon"
+                   width="80px;"
+                   height="80px;"
+                   @click="openWebMainPage(item.id)">
+              <img v-else
+                   src="/static/web+Icon.svg"
+                   width="80px;"
+                   height="80px;"
+                   @click="openWebMainPage(item.id)">
+              <h3 class="text-overflow">{{item.name}}</h3>
+            </div>
+            <DropdownMenu slot="list">
+              <DropdownItem @click.native="openWebMainPage(item.id)">打开</DropdownItem>
+              <DropdownItem @click.native="delWebContainer(item.id)">删除</DropdownItem>
+              <DropdownItem divided>取消</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
 
-      </Card>
-      </Col>
+        </Card>
+        </Col>
+      </vuedraggable>
     </Row>
 
     <Breadcrumb :style="{margin: '20px 0'}">
@@ -61,11 +66,16 @@
 </template>
 
 <script>
+import vuedraggable from 'vuedraggable'
+
 export default {
   data () {
     return {
       webContainerList: []
     }
+  },
+  components: {
+    vuedraggable: vuedraggable
   },
   methods: {
     async getWebContainer () {
@@ -113,6 +123,9 @@ export default {
       ipcRenderer.on('updateWebContainerList', () => {
         this.getWebContainer()
       })
+    },
+    updated () {
+      console.log(this.webContainerList)
     }
   },
   mounted () {

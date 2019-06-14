@@ -18,80 +18,110 @@
     <Layout>
       <div :style="{position: 'fixed', width: '100%'}">
         <Tabs type="card"
+              :value="currentHeaderTab"
               closable
-              @on-tab-remove="handleTabRemove">
-          <TabPane :label="title">
-            <Header id="mainPageHeader">
-              <Row>
-                <Col :xs="8"
-                     :sm="6"
-                     :md="4"
-                     :lg="2">
-                <ButtonGroup>
-                  <Button type="primary"
-                          shape="circle"
-                          icon="md-arrow-back"
-                          @click="goBack()"></Button>
-                  <Button type="primary"
-                          shape="circle"
-                          icon="md-arrow-forward"
-                          @click="goForward()"></Button>
-                  <Button v-if="loading==false"
+              :before-remove="removeHeaderTab">
+          <TabPane :label="index===0 ? title: headerTab.title"
+                   v-for="(headerTab, index) in headerTabs"
+                   :key="index"
+                   :name="headerTab.label">
+            <div v-if="headerTab.label==='default'">
+              <Header id="mainPageHeader">
+                <Row>
+                  <Col :xs="8"
+                       :sm="6"
+                       :md="4"
+                       :lg="2">
+                  <ButtonGroup>
+                    <Button type="primary"
+                            shape="circle"
+                            icon="md-arrow-back"
+                            @click="goBack()"></Button>
+                    <Button type="primary"
+                            shape="circle"
+                            icon="md-arrow-forward"
+                            @click="goForward()"></Button>
+                    <Button v-if="loading==false"
+                            type="primary"
+                            shape="circle"
+                            icon="md-refresh"
+                            @click="refresh()"></Button>
+                    <Button v-else
+                            type="primary"
+                            shape="circle"
+                            icon="md-close"
+                            @click="stop()"></Button>
+                  </ButtonGroup>
+                  </Col>
+                  <Col :xs="8"
+                       :sm="12"
+                       :md="16"
+                       :lg="20">
+                  <Input type="url"
+                         prefix="ios-lock"
+                         placeholder="输入网址"
+                         icon="ios-search-outline"
+                         v-model="link" />
+                  </Col>
+                  <Col :xs="4"
+                       :sm="3"
+                       :md="2"
+                       :lg="1">
+                  <Button style="margin-left: 20px;"
                           type="primary"
-                          shape="circle"
-                          icon="md-refresh"
-                          @click="refresh()"></Button>
-                  <Button v-else
-                          type="primary"
-                          shape="circle"
-                          icon="md-close"
-                          @click="stop()"></Button>
-                </ButtonGroup>
-                </Col>
-                <Col :xs="8"
-                     :sm="12"
-                     :md="16"
-                     :lg="20">
-                <Input type="url"
-                       prefix="ios-lock"
-                       placeholder="输入网址"
-                       icon="ios-search-outline"
-                       v-model="link" />
-                </Col>
-                <Col :xs="4"
-                     :sm="3"
-                     :md="2"
-                     :lg="1">
-                <Button style="margin-left: 20px;"
-                        type="primary"
-                        @click="go()">Go</Button>
-                </Col>
-                <Col :xs="4"
-                     :sm="3"
-                     :md="2"
-                     :lg="1">
-                <Dropdown style="margin-left: 20px"
-                          placement="bottom-end"
-                          trigger="click">
-                  <Button type="success"
-                          icon="md-more"></Button>
-                  <DropdownMenu slot="list">
-                    <DropdownItem @click.native="saveContainer()">保存容器</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-                </Col>
-              </Row>
-            </Header>
-            <Content :style="{margin: '0 0 0', background: '#fff', minHeight: '200px', minHeight: '500px'}">
-              <webview id='first'
-                       :src="webviewCfg.url"
-                       partition="persist:webviewsession"
-                       autosize="on"
-                       :style="webviewCfg.style"
-                       :useragent="webviewCfg.useragent"></webview>
-            </Content>
+                          @click="go()">Go</Button>
+                  </Col>
+                  <Col :xs="4"
+                       :sm="3"
+                       :md="2"
+                       :lg="1">
+                  <Dropdown style="margin-left: 20px"
+                            placement="bottom-end"
+                            trigger="click">
+                    <Button type="success"
+                            icon="md-more"></Button>
+                    <DropdownMenu slot="list">
+                      <DropdownItem @click.native="saveContainer()">保存容器</DropdownItem>
+                      <DropdownItem v-if="pageId"
+                                    @click.native="addHeaderTab('基础设置', 'browserConfig')">基础设置</DropdownItem>
+                      <!-- <DropdownItem v-if="pageId"
+                                    @click.native="addHeaderTab('preload管理', 'preload')">preload管理</DropdownItem> -->
+                      <DropdownItem v-if="pageId"
+                                    @click.native="addHeaderTab('puppeteer管理', 'puppeteer')">puppeteer管理</DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                  </Col>
+                </Row>
+              </Header>
+              <Content :style="{margin: '0 0 0', background: '#fff', minHeight: '200px', minHeight: '500px'}">
+                <webview id='first'
+                         :src="webviewCfg.url"
+                         partition="persist:webviewsession"
+                         autosize="on"
+                         :style="webviewCfg.style"
+                         :useragent="webviewCfg.useragent"></webview>
+              </Content>
+            </div>
+            <div v-else-if="headerTab.label==='browserConfig'">
+              browserConfig
+            </div>
+            <div v-else-if="headerTab.label==='preload'">
+              preload管理
+              <!-- <Input v-model="currentPreload.title"
+                     placeholder=""></Input>
+              <editor v-model="currentPreload.content"
+                      @init="editorInit"
+                      lang="html"
+                      theme="chrome"
+                      width="100%"
+                      height="100"></editor>
+              <Button type="primary"
+                      @click="savePreload">保存</Button> -->
+            </div>
+            <div v-else-if="headerTab.label==='puppeteer'">
+              <puppeteer></puppeteer>
+            </div>
           </TabPane>
-          <TabPane label="标签二"></TabPane>
         </Tabs>
       </div>
 
@@ -161,8 +191,24 @@ export default {
         useragent: '',
         url: ''
       },
-      link: ''
+      link: '',
+      currentHeaderTab: 'default',
+      headerTabs: [{
+        label: 'default'
+      }],
+      preloadList: [],
+      currentPreload: {
+        title: '',
+        content: ''
+      },
+      currentPuppeteer: {
+        title: '',
+        content: ''
+      }
     }
+  },
+  components: {
+    puppeteer: require('@/components/puppeteer').default
   },
   methods: {
     go () {
@@ -187,6 +233,22 @@ export default {
     },
     refresh () {
       this.webview.reload()
+    },
+    addHeaderTab (title, label) {
+      this.headerTabs = this.headerTabs.concat({
+        title: title,
+        label: label
+      })
+      this.currentHeaderTab = label
+    },
+    removeHeaderTab (e) {
+      if (e === 0) {
+        this.$Message.warning({
+          title: '警告',
+          content: '该标签无法被关闭'
+        })
+        return new Promise()
+      }
     },
     async addWebContainer (name) {
       this.$refs[name].validate(async (valid) => {
@@ -239,7 +301,20 @@ export default {
         console.log(error)
       }
     },
-    handleTabRemove () { },
+    async savePreload () {
+      try {
+        if (this.currentPreload.id) {
+          await this.$db.containerPreload.update(parseInt(this.currentPreload.id), this.currentPreload)
+        } else {
+          this.currentPreload.containerId = parseInt(this.pageId)
+          await this.$db.containerPreload.add(this.currentPreload)
+        }
+        this.$Message.success('preload保存成功.')
+      } catch (error) {
+        console.log(error)
+        this.$Message.error('preload保存失败.')
+      }
+    },
     async init () {
       if (this.$os.platform() !== 'darwin') {
         document.querySelector('.ivu-tabs-nav').style.cssText = 'padding-left:5px !important;'
@@ -249,6 +324,7 @@ export default {
       if (this.pageId) {
         this.config = (await this.$db.webContainer.where({ id: parseInt(this.pageId) }).toArray())[0]
         this.webviewCfg.url = this.config.link
+        this.preloadList = await this.$db.webContainer.where({ containerId: parseInt(this.pageId) })
       }
       // let proxy = (!accountInfo.proxy) ? '未设置' : accountInfo.proxy
       // const { session } = this.$electron.remote
@@ -272,6 +348,7 @@ export default {
         currentWin.setTitle(this.webview.getTitle())
         this.title = this.webview.getTitle()
         this.link = this.webview.getURL()
+        this.webview.executeJavaScript(this.currentPreload.content)
       })
       this.webview.addEventListener('did-fail-load', (e) => {
         this.$Message.error('加载失败.' + e.errorCode + '|' + e.errorDescription)
