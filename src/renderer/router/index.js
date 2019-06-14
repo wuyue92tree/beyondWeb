@@ -8,30 +8,30 @@ export default new Router({
     {
       path: '/',
       name: 'index',
-      component: require('@/components/index').default,
+      component: require('@/pages/index').default,
       redirect: '/webContainer',
       children: [
         {
           path: '/webContainer',
           name: 'webContainer',
-          component: require('@/components/webContainer').default
+          component: require('@/pages/webContainer').default
         },
         {
           path: '/plugin',
           name: 'plugin',
-          component: require('@/components/plugin').default
+          component: require('@/pages/plugin').default
         },
         {
           path: '/setting',
           name: 'setting',
-          component: require('@/components/setting').default
+          component: require('@/pages/setting').default
         }
       ]
     },
     {
       path: '*',
       name: 'webMainPage',
-      component: require('@/components/webMainPage').default
+      component: require('@/pages/webMainPage').default
     },
     {
       path: '*',
